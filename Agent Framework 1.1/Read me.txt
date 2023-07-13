@@ -1,0 +1,54 @@
+"Agent Framework v1.1 - README
+
+Introduction:
+Azureite Generative Agents is a comprehensive framework for creating intelligent agents. These agents possess various cognitive functions, including perception, memory, emotional processing, reasoning, cognitive control, and resource management.
+
+Version Updates (v1.1):
+In this updated version, we have focused on enhancing the planning and reacting capabilities of the agents, making them more dynamic and responsive to their environment. These changes address the limitations mentioned in the provided note.
+
+Note for ChatGPT:
+"Planning and Reacting: The ReasoningSystem class includes a method for planning actions (plan_actions). However, the current implementation of this method is simplified and does not decompose the plan into finer chunks as described in the note. It simply stores the goals as the plan and does not provide a way to represent a day's agenda, hour-long chunks, or 5-15 minute chunks. The method react_to_observations does allow the agent to modify their plan based on observations. The execute_plan method in the Agent class allows the agent to execute the actions in the plan, but there isn't a clear loop structure where the agent perceives, stores observations, and decides whether to continue with the plan or react at each time step. These aspects of the planning and reacting system as described in the note are not fully represented in the code."
+
+Components:
+The framework consists of several major components:
+
+1. PerceptionSystem:
+   - Handles sensory input processing and converts it to internal representation.
+
+2. MemorySystem:
+   - Manages different types of memory (sensory, short-term, long-term) for storing and retrieving information.
+
+3. EmotionalSystem:
+   - Tracks the current emotion and its intensity to provide an emotional state to the agent.
+
+4. ReasoningSystem:
+   - Enables the agent to make decisions, plan actions, and react to observations.
+
+5. CognitiveControlSystem:
+   - Facilitates cognitive control by allowing the agent to set objectives, strategies, and execute them.
+
+6. ResourceSystem:
+   - Manages the available resources for the agent's operations.
+
+7. AgentMessage:
+   - Represents a message that can be sent or received by an agent.
+
+8. Agent:
+   - Represents an individual agent, integrating all the cognitive systems and providing methods for interacting with the environment and other agents.
+
+9. AgentManager:
+   - Manages multiple agents, offering methods for creating, removing, observing, and intervening with agents.
+
+Updates in v1.1:
+1. Added a new method called `perceive_act_cycle` to the Agent class. This method encapsulates the loop where the agent perceives the environment, stores observations, decides whether to continue with the current plan or react to new observations, and executes the plan accordingly.
+
+2. Updated the `plan_actions` method in the ReasoningSystem class to incorporate the `react_to_observations` method in the planning process. This enables the agent to consider whether to proceed with the existing plan or modify it based on fresh observations.
+
+Usage:
+To utilize the framework, follow these steps:
+1. Create an instance of AgentManager.
+2. Utilize the `AgentManager.create_agent(name, description)` method to generate a new agent.
+3. Interact with the agent using the provided methods in the Agent class.
+4. Refer to the inline comments in the code for more detailed guidance.
+
+Please note that this README provides a high-level overview of the code base, outlining its key components and the modifications made in this version. Feel free to refine and expand it according to your specific requirements."
