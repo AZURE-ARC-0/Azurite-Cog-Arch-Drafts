@@ -1,0 +1,8 @@
+Please note, this is a rough implementation with the following changes:
+
+The PerceptionSystem and MemorySystem now store inputs and memories as dictionaries containing a type and value. This will allow us to handle different types of inputs and memories, and will make it easier to implement retrieval methods that handle different types of memories.
+The MemorySystem now stores past actions in a new deque, past_actions.
+The MemorySystem now stores relationships as a dictionary of dictionaries. This will allow us to store complex information about relationships.
+The AgentManager now includes a method to observe an agent's current state, including its last reflection.
+The AgentManager now includes a method to intervene in an agent's behavior by changing its attributes.
+The Agent class now includes a method to execute the next action based on a decision from the CognitiveControlSystem.
