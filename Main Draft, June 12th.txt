@@ -1,0 +1,383 @@
+import sqlite3
+import json
+from typing import Callable, Dict, Deque, List, Optional, Any, Union, Tuple
+from collections import deque
+import random
+
+class PerceptionSystem:
+    """
+    A class representing the perception system of an agent.
+    """
+    def __init__(self):
+        self.sensory_inputs: Deque[str] = deque(maxlen=100)
+
+    def process_input(self, input: str, memory_system: 'MemorySystem') -> str:
+        """
+        Process sensory input and convert it to internal representation.
+        """
+        self.sensory_inputs.append(input)
+        internal_representation = self.convert_to_internal_representation(input, memory_system)
+        return internal_representation
+
+    def convert_to_internal_representation(self, input: str, memory_system: 'MemorySystem') -> str:
+        """
+        Convert sensory input to internal representation.
+        """
+        # Here we should add code to convert the input based on the agent's past experiences
+        # stored in the memory system. For simplicity, we will just return the input in this example.
+        return input
+
+    def observe(self) -> None:
+        pass
+
+class MemorySystem:
+    """
+    A class representing the memory system of an agent.
+    """
+    def __init__(self):
+        self.sensory_memory: Deque[str] = deque(maxlen=100)
+        self.short_term_memory: Deque[str] = deque(maxlen=100)
+        self.relationships: Dict[str, float] = {}
+        self.reflections: Deque[str] = deque(maxlen=100)  # New: deque to store reflections
+
+        self.conn = sqlite3.connect('ChromaDB.db')
+        self.cursor = self.conn.cursor()
+
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS long_term_memory (
+                key TEXT PRIMARY KEY,
+                value BLOB
+            )
+        """)
+        self.conn.commit()
+
+    def store_sensory(self, info: str) -> None:
+        self.sensory_memory.append(info)
+
+    def store_short_term(self, info: str) -> None:
+        self.short_term_memory.append(info)
+
+    def store_long_term(self, key: str, value: Any) -> None:
+        serialized_value = json.dumps(value)
+        self.cursor.execute("INSERT OR REPLACE INTO long_term_memory VALUES (?, ?)", (key, serialized_value))
+        self.conn.commit()
+
+    def store_reflection(self, reflection: str) -> None:  # New method to store reflections
+        self.reflections.append(reflection)
+
+    def retrieve_sensory(self) -> Optional[str]:
+        return self.sensory_memory[-1] if self.sensory_memory else None
+
+    def retrieve_short_term(self) -> Optional[str]:
+        return self.short_term_memory[-1] if self.short_term_memory else None
+
+    def retrieve_long_term(self, key: str) -> Any:
+        self.cursor.execute("SELECT value FROM long_term_memory WHERE key = ?", (key,))
+        result = self.cursor.fetchone()
+        if result is None:
+            raise KeyError(f"Key '{key}' not found in long-term memory.")
+        else:
+            return json.loads(result[0])
+
+    def retrieve_last_reflection(self) -> Optional[str]:  # New method to retrieve the latest reflection
+        return self.reflections[-1] if self.reflections else None
+
+    def retrieve_sensory_by_pattern(self, pattern: str) -> Optional[str]:
+        # Implement retrieval by pattern here
+        pass
+
+    def retrieve_short_term_by_pattern(self, pattern: str) -> Optional[str]:
+        # Implement retrieval by pattern here
+        pass
+
+    def retrieve_long_term_by_pattern(self, pattern: str) -> Any:
+        # Implement retrieval by pattern here
+        pass
+
+    def prune_memory(self) -> None:
+        pass
+
+class EmotionalSystem:
+    """
+    A class representing the emotional system of an agent.
+    """
+    def __init__(self):
+        self.current_emotion: Optional[str] = None
+        self.emotion_intensity: Optional[float] = None
+
+    def update_emotion(self, emotion: str, intensity: float) -> None:
+        self.current_emotion = emotion
+        self.emotion_intensity = intensity
+
+    def get_emotional_state(self) -> Tuple[str, float]:
+        return self.current_emotion, self.emotion_intensity
+
+    def decay_emotion(self) -> None:
+        if self.emotion_intensity:
+            self.emotion_intensity *= 0.9
+
+class ReasoningSystem:
+    """
+    A class representing the reasoning system of an agent.
+    """
+    def __init__(self):
+        self.current_plan: List[str] = []
+
+    def make_decision(self, perceptions: str, memories: Deque[str], emotions: Optional[Tuple[str, float]]) -> str:
+        # Implement a real decision-making algorithm here
+        # For simplicity, we will just return a random decision
+        return random.choice(["decision1", "decision2", "decision3"])
+
+    def plan_actions(self, goals: List[str], constraints: List[str]) -> None:  # Updated to store the plan
+        """
+        Create a plan of actions based on the given goals and constraints.
+        """
+        # This is a simplified version of planning.
+        # In a real system, we would use a much more sophisticated algorithm
+        # to generate a plan that satisfies the goals and constraints as much as possible.
+        self.current_plan = goals
+
+    def react_to_observations(self, observations: List[str]) -> None:  # Updated to modify the plan based on observations
+        """
+        React to the given observations.
+        """
+        # This is a simplified version of reacting.
+        # In a real system, we would use a much more sophisticated algorithm
+        # to determine how to react to the observations.
+        if "unexpected event" in observations:
+            self.current_plan.append("respond to unexpected event")
+
+class CognitiveControlSystem:
+    """
+    A class representing the cognitive control system of an agent.
+    """
+    def __init__(self):
+        self.objectives: List[str] = []
+        self.strategies: List[str] = []
+
+    def set_objective(self, objective: str) -> None:
+        self.objectives.append(objective)
+
+    def set_strategy(self, strategy: str) -> None:
+        self.strategies.append(strategy)
+
+    def execute_strategy(self) -> None:
+        if self.strategies:
+            current_strategy = self.strategies[0]
+            print(f"Executing strategy: {current_strategy}")
+            pass
+
+    def evaluate_strategy(self) -> bool:
+        return True
+
+    def update_strategy(self) -> None:
+        pass
+
+    def decide_next_action(self, perception_system: 'PerceptionSystem', memory_system: 'MemorySystem', emotional_system: 'EmotionalSystem') -> str:
+        # Implement decision making based on the state of the perception, memory, and emotional systems
+        # For simplicity, we will just return a random action
+        return random.choice(["action1", "action2", "action3"])
+
+class ResourceSystem:
+    """
+    A class representing the resource system of an agent.
+    """
+    def __init__(self):
+        self.resources: Dict[str, Any] = {}
+
+    def add_resource(self, resource_name: str, resource_value: Any) -> None:
+        self.resources[resource_name] = resource_value
+
+    def use_resource(self, resource_name: str) -> Any:
+        if resource_name in self.resources:
+            return self.resources[resource_name]
+        else:
+            raise ValueError(f"Resource '{resource_name}' not found.")
+
+    def check_resource_availability(self, resource_name: str) -> bool:
+        return resource_name in self.resources
+
+    def replenish_resource(self, resource_name: str, resource_value: Any) -> None:
+        if resource_name in self.resources:
+            self.resources[resource_name] += resource_value
+        else:
+            raise ValueError(f"Resource '{resource_name}' not found.")
+
+class AgentMessage:
+    """
+    A class representing a message that an agent can send or receive.
+    """
+    def __init__(self, sender: 'Agent', recipient: 'Agent', content: Any):
+        self.sender = sender
+        self.recipient = recipient
+        self.content = content
+
+class Agent:
+    """
+    A class representing an agent.
+    """
+    def __init__(self, name: str, description: str):
+        self.name: str = name
+        self.description: str = description
+        self.plan: List[str] = []
+        self.goals: List[str] = []
+        self.constraints: List[str] = []
+        self.commands: Dict[str, Dict[str, Union[Callable, Dict[str, str]]]] = {}
+        self.feedback: List[str] = []
+        self.memory_system: MemorySystem = MemorySystem()
+        self.perception_system: PerceptionSystem = PerceptionSystem()
+        self.emotional_system: EmotionalSystem = EmotionalSystem()
+        self.reasoning_system: ReasoningSystem = ReasoningSystem()
+        self.cognitive_control_system: CognitiveControlSystem = CognitiveControlSystem()
+        self.resource_system: ResourceSystem = ResourceSystem()
+        self.inbox: Deque[AgentMessage] = deque(maxlen=100)
+
+    def interact_with_user(self, question: str) -> str:
+        return "user response"
+
+    def interact_with_agent(self, other_agent: 'Agent') -> None:
+        self.send_message(other_agent, f"Hello, {other_agent.name}!")
+
+    def generate_code(self, requirements: Dict[str, Any]) -> str:
+        return "generated code"
+
+    def state_assumptions(self, assumptions: Dict[str, Any]) -> None:
+        pass
+
+    def validate_code(self, code: str) -> bool:
+        return True
+
+    def manage_files(self, files: Dict[str, str]) -> None:
+        pass
+
+    def add_goal(self, goal: str) -> None:
+        self.goals.append(goal)
+
+    def remove_goal(self, goal: str) -> None:
+        if goal in self.goals:
+            self.goals.remove(goal)
+
+    def add_constraint(self, constraint: str) -> None:
+        self.constraints.append(constraint)
+
+    def remove_constraint(self, constraint: str) -> None:
+        if constraint in self.constraints:
+            self.constraints.remove(constraint)
+
+    def add_command(self, command: str, function: Callable, args_spec: Dict[str, str]) -> None:
+        self.commands[command] = {'function': function, 'args_spec': args_spec}
+
+    def execute_command(self, command: str, args: Dict[str, Any]) -> Any:
+        if command in self.commands:
+            function = self.commands[command]['function']
+            args_spec = self.commands[command]['args_spec']
+            if set(args.keys()) == set(args_spec.keys()):
+                return function(**args)
+            else:
+                raise ValueError(f"Arguments do not match specification for command '{command}'.")
+        else:
+            raise ValueError(f"Command '{command}' not found.")
+
+    def add_resource(self, resource_name: str, resource_value: Any) -> None:
+        self.resource_system.add_resource(resource_name, resource_value)
+
+    def use_resource(self, resource_name: str) -> Any:
+        return self.resource_system.use_resource(resource_name)
+
+    def self_evaluate(self) -> str:
+        return "self-evaluation"
+
+    def reflect_on_observations(self, observations: List[str]) -> None:  # Updated to store reflections
+        """
+        Reflect on the given observations.
+        """
+        # This is a simplified version of reflection.
+        # In a real system, we would use a much more sophisticated algorithm
+        # to generate meaningful reflections based on the observations.
+        for observation in observations:
+            self.memory_system.store_reflection(f"Reflected on observation: {observation}")
+
+    def answer_questions(self, questions: List[str]) -> List[str]:
+        return []
+
+    def interact(self, external_agent: 'Agent') -> Any:
+        return "interaction results"
+
+    def learn(self, information: str) -> None:
+        pass
+
+    def process_messages(self) -> None:
+        while self.inbox:
+            message = self.inbox.popleft()
+            print(f"Processing message from {message.sender.name} with content: {message.content}")
+            if message.content == f"Hello, {self.name}!":
+                if message.sender.name not in self.memory_system.relationships:
+                    self.memory_system.relationships[message.sender.name] = 0
+                self.memory_system.relationships[message.sender.name] += 1
+
+    def send_message(self, recipient: 'Agent', content: Any) -> None:
+        message = AgentMessage(sender=self, recipient=recipient, content=content)
+        recipient.receive_message(message)
+
+    def receive_message(self, message: AgentMessage) -> None:
+        self.inbox.append(message)
+
+    def execute_plan(self) -> None:
+        if self.plan:
+            action = self.plan.pop(0)
+            self.execute_command(action, {})
+
+    def decide_next_action(self) -> None:
+        next_action = self.cognitive_control_system.decide_next_action(self.perception_system, self.memory_system, self.emotional_system)
+        self.execute_command(next_action, {})
+
+class AgentManager:
+    """
+    A class for managing agents.
+    """
+    def __init__(self):
+        self.agents: Dict[str, Agent] = {}
+
+    def create_agent(self, name: str, description: str) -> Agent:
+        if name in self.agents:
+            raise ValueError(f"An agent with the name '{name}' already exists.")
+        agent = Agent(name, description)
+        self.agents[name] = agent
+        return agent
+
+    def remove_agent(self, name: str) -> None:
+        if name not in self.agents:
+            raise ValueError(f"No agent with the name '{name}' exists.")
+        del self.agents[name]
+
+    def get_agent(self, name: str) -> Agent:
+        if name not in self.agents:
+            raise ValueError(f"No agent with the name '{name}' exists.")
+        return self.agents[name]
+
+    def process_all_messages(self) -> None:
+        for agent in self.agents.values():
+            agent.process_messages()
+
+    def observe_agent(self, name: str) -> Dict[str, Any]:
+        agent = self.get_agent(name)
+        return {
+            'name': agent.name,
+            'description': agent.description,
+            'plan': agent.plan,
+            'goals': agent.goals,
+            'constraints': agent.constraints,
+            'resources': agent.resource_system.resources,
+            'current_emotion': agent.emotional_system.current_emotion,
+            'emotion_intensity': agent.emotional_system.emotion_intensity,
+            'relationships': agent.memory_system.relationships,
+            'last_reflection': agent.memory_system.retrieve_last_reflection()  # New: last reflection
+        }
+
+    def intervene(self, name: str, intervention: Dict[str, Any]) -> None:
+        agent = self.get_agent(name)
+        for key, value in intervention.items():
+            if hasattr(agent, key):
+                setattr(agent, key, value)
+            else:
+                raise ValueError(f"Agent has no attribute '{key}'.")
