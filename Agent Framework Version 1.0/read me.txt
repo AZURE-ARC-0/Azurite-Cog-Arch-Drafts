@@ -1,0 +1,39 @@
+Agent Framework Version 1.0
+Introduction
+This repository contains the first version of a comprehensive agent framework designed to simulate the cognitive processes of an intelligent agent. The framework is implemented in Python and includes several interacting subsystems that simulate different aspects of cognition, including perception, memory, emotion, reasoning, and cognitive control.
+
+Features
+The Agent Framework Version 1.0 features the following subsystems:
+
+Perception System: Handles sensory input and converts it to an internal representation.
+Memory System: Stores sensory, short-term, and long-term memories, as well as reflections and relationships. This system includes a SQLite database for storing long-term memories. Also, it stores reflections in a hierarchical structure known as the "Tree of Reflections".
+Emotional System: Tracks the current emotion and its intensity.
+Reasoning System: Makes decisions and plans actions based on perceptions, memories, and emotions.
+Cognitive Control System: Sets objectives and strategies, executes strategies, and decides the next action.
+Resource System: Manages the resources of the agent.
+The agent can interact with users, other agents, and its own subsystems. It can also learn from information, answer questions, manage files, and execute commands.
+
+Installation
+Clone this repository to your local machine.
+Make sure you have Python 3 installed.
+There are no dependencies outside of the Python Standard Library.
+Usage
+Import the Agent and AgentManager classes from the "Agent_Framework_Version_1.0.py" file.
+Create an instance of the AgentManager class.
+Use the create_agent method of the AgentManager instance to create new agents.
+Use the methods of the Agent class to interact with the agents, and the methods of the AgentManager class to manage them.
+Example
+python
+Copy code
+from Agent_Framework_Version_1_0 import AgentManager
+
+manager = AgentManager()
+agent = manager.create_agent("Agent1", "This is a test agent.")
+print(manager.observe_agent("Agent1"))
+Contributing
+Contributions are welcome! Please submit a pull request or create an issue to propose changes or additions.
+
+License
+This project is licensed under the MIT License.
+
+This README provides a general overview of the project. You may want to adjust it based on your specific needs or add more detailed information about certain aspects of the project.
