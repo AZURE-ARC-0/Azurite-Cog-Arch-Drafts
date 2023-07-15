@@ -1,0 +1,24 @@
+Here's the change log for the enhancements made to the Agent Framework 1.6:
+
+Enhancements
+1. Procedural Memory
+A procedural memory system was added to the MemorySystem class to store and recall action sequences or procedures.
+New methods store_procedure and retrieve_procedure were added to the MemorySystem class for storing and retrieving procedures.
+A method retrieve_procedure_by_pattern was also added to retrieve procedures by pattern.
+2. Motivational System
+A new MotivationalSystem class was introduced to provide a system that drives goal-oriented behavior.
+This system can set and get the current goal and its priority, and also store and retrieve the goal history.
+3. Metacognition
+The MemorySystem class was extended to include a reflection tree for storing self-reflections of the agent.
+New methods store_reflection, retrieve_last_reflection were added to the MemorySystem class to handle reflections.
+The CognitiveControlSystem class was extended with a reflect_on_decision method to enable the agent to reflect on its decisions.
+Modifications
+1. CognitiveControlSystem
+The CognitiveControlSystem class constructor was modified to include the MotivationalSystem in its arguments.
+The process_input method was modified to use the MotivationalSystem for decision making.
+2. Agent
+The Agent class constructor was modified to initialize a MotivationalSystem instance.
+The Agent class was extended with a reflect method to enable the agent to perform self-reflection.
+Deletions
+None.
+Please note that the specific implementation details for the new methods are left as TODOs and need to be filled in based on the specific requirements and constraints of your project.
