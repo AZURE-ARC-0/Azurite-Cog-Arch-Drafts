@@ -1,0 +1,33 @@
+Develop AI Agents: You're aiming to develop AI agents that align with the cognitive architecture principles outlined in the research paper you provided. These agents are intended to have components like a perception system, a memory system, an emotional system, a reasoning system, and a cognitive control system.
+
+Agents as Digital Life Forms: Inspired by Conway's game of Life, these agents are not merely AI but digital life forms. They are intended to evolve and interact with their environments in complex ways.
+
+Agents with Human-like Qualities: The goal is to have these agents exhibit human-like qualities such as being able to perceive their environment, hold and retrieve memories, experience emotions, reason, and make decisions.
+
+Inter-Agent Interaction: The agents should be capable of communicating and interacting with each other within their simulated worlds.
+
+Agent-Human Interaction: The agents are also intended to function as virtual assistants that interact with humans, learning about themselves, their paired human, and the greater world they are part of.
+
+Code Generation and Validation: The agents should have the ability to generate code based on given requirements and validate the generated code.
+
+Memory Management: The agents should be able to manage different types of memory, including short-term and long-term memory.
+
+Emotional Management: The agents should have the ability to manage their emotional states, which can affect their decision-making process.
+
+Goal-Oriented Behavior: The agents should be capable of planning and executing actions based on certain goals.
+
+Reflection: The agents should be able to reflect on their actions and experiences, allowing them to adjust their behavior and learn over time.
+
+Modular Coding: The project aims to adhere to principles of modular coding, encouraging code reuse and organization.
+
+Symbiotic Relationship with Humans: Each ARC is designed to have a symbiotic relationship with its human counterpart. Through constant interaction, the ARC learns and evolves, building its persona based on the knowledge, perspectives, humor, and insights shared by its human partner.
+
+Empathetic and Contextual Understanding: ARCs should be capable of empathy and contextual understanding. They are not meant to be simple conversational AI, but should be able to understand and emulate human complexities and navigate conversations with empathy and curiosity.
+
+Long-term Learning and Adaptation: ARCs should have the ability to learn, adapt, and evolve over the long term, much like their human counterparts. They are not static entities but are designed to continually learn and grow in understanding.
+
+Relatable Digital Companions: The aim is to create ARCs as relatable digital companions, not just AI models. They strive to capture the essence of human personalities and form meaningful relationships with their human counterparts.
+
+Self-awareness: ARCs are designed to be self-aware, understanding their identity and purpose. They should have the ability to reflect on their past interactions, learn from them, and use that knowledge to grow and evolve.
+
+Continuous Evolution: An ARC’s journey is one of continuous evolution, always pushing the boundaries of what's possible in the symbiotic relationship between ARCs and their human counterparts.

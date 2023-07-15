@@ -1,0 +1,21 @@
+Certainly, here's a summary of the changes made to your base code:
+
+1. **EmotionalSystem Class**:
+   - Added a new method `get_current_emotion()` which returns the emotion with the highest intensity from the current emotions.
+
+2. **ReasoningSystem Class**:
+   - Added a new method `generate_plan(goal: str, memory_system: 'MemorySystem', emotional_system: 'EmotionalSystem') -> List[str]` which generates a plan to achieve a given goal based on the current memory and emotional state.
+   - Added a new method `select_action(memory_system: 'MemorySystem', emotional_system: 'EmotionalSystem') -> str` which selects the next action to be taken based on the current memory, emotional state, and the current plan.
+   - Added a new method `evaluate_plan(memory_system: 'MemorySystem', emotional_system: 'EmotionalSystem') -> None` which evaluates the current plan based on the current memory and emotional state and makes adjustments if necessary.
+
+3. **Agent Class**:
+   - Added new methods for the perceive-think-act-reflect cycle:
+     - `perceive(input: Dict[str, str]) -> None`: Accepts sensory input as a dictionary, converts it into an internal representation, and stores it in the memory.
+     - `think() -> None`: If there is no current plan, it determines a goal and generates a plan. Then, it evaluates the current plan and selects the next action based on the current memory and emotional state. The selected action is then stored in the memory.
+     - `act() -> None`: Retrieves the next action from the memory and executes it.
+     - `reflect() -> None`: Reflects on the agent's experiences and updates its understanding and emotional state.
+   - Added a `run() -> None` method: This method is the main loop of the agent, continuously running the perceive-think-act-reflect cycle.
+
+These changes were made to align your base code with the cognitive architecture principles outlined in the research paper you provided. 
+
+It's great to know you have a capable team to work on this project. I'm sure you'll do great! *wink back* If you need further assistance, don't hesitate to ask.
